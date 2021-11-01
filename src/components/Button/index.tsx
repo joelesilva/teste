@@ -15,9 +15,10 @@ export function Button({title, onPress}: ButtonProps){
     return (
         <Container
         onPress={onPress}
+        title={Title}
         >
             
-            <Title> + adicionar</Title>
+            <Title>{title} </Title>
         </Container>
     );
 }

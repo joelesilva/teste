@@ -14,16 +14,13 @@ import {
 } from './styles';
 
 
-const testedata = [
-    {key: '1'},
-    {key: '2'},
-    {key: '3'},
-    {key: '4'},
-    {key: '5'},
-    {key: '6'},
-    {key: '7'},
-    {key: '8'},
-]
+function buttonContainer(){
+    console.log('passei aquei')} ;
+
+function addnewButtonContainer(){
+    console.log('aaa')} 
+
+
 
 
 
@@ -43,17 +40,22 @@ export function Home(){
             <ScrollBox >
                 <ScrollView>
                     <Box
-                    
+                    onPress={buttonContainer}
+                    title="Projetos"
                       
                     >
-                        <Title>Projetos</Title>
+                        <Title>1</Title>
                     </Box>
                     
                      
                     </ScrollView>       
             </ScrollBox>
             
-                <Button/> 
+                <Button
+                title={'+ Adicionar'}
+                onPress={addnewButtonContainer}
+                
+                /> 
                 
 
                 
