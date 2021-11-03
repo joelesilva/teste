@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button} from '../../components/Button';
-import { InputForm } from '../../forms/InputForm';
+import { InputForm } from '../../components/inputForm';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as Yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -62,13 +62,14 @@ export function AddBox(){
             ds_titulo: form.ds_titulo,
             ds_descricao: form.ds_descricao,
         }
-        try {
+        console.log(newBox)
+         try {
             await api.post("/ApiBox",  newBox ).then(() => navigation.navigate('Home'))           
 
             reset();
-        } catch (error: any) {
-            console.log(error.message);
-        }
+         } catch (error: any) {
+             console.log(error.message);
+         }
     }
 
 
@@ -85,6 +86,7 @@ export function AddBox(){
             </Header>
                 <Codigo>
                 <InputForm
+                    name="idprojeto"
                     placeholder="Codigo"
                     keyboardType="numeric"
                     error={errors.idprojeto && errors.idprojeto.message} 
@@ -96,6 +98,7 @@ export function AddBox(){
                 <Titulo>
             
                     <InputForm
+                    name="ds_titulo"
                     placeholder="Título"
                     error={errors.ds_titulo && errors.ds_titulo.message}
                     control = {control}
@@ -105,6 +108,7 @@ export function AddBox(){
 
                 <Descrição>
                     <InputForm
+                    name="ds_descricao"
                     placeholder="Descrição "
                     error={errors.ds_descricao && errors.ds_descricao.message}
                     control = {control}
