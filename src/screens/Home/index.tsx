@@ -1,6 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button } from '../../components/Button';
-import { ScrollView, View } from 'react-native';
+import { CardBox } from '../../components/CardBox';
+import { BoxDTO } from '../../dtos/BoxDTO';
+
+import api from '../../services/api';
+
+
 
 
 
@@ -8,23 +13,38 @@ import {
     Container,
     Header,
     Box,
-    Title,
+    Title, 
+    ScrollBox,
+    BoxFlat
     
-    ScrollBox
 } from './styles';
 
 
-function buttonContainer(){
-    console.log('passei aquei')} ;
-
-function addnewButtonContainer(){
-    console.log('aaa')} 
 
 
 
 
 
-export function Home(){
+export function Home({navigation}){
+    const [box, setBox] = useState([]);
+
+    useEffect(() =>{
+        async function Boxapi () {
+        
+           try {
+
+            const response = await api.get('/ApiBox');
+            setBox(response.data);
+
+           } catch (error) {
+               console.log(error);
+           }
+           
+        }
+        Boxapi();
+    },[])
+   
+       
     return (
       
         
@@ -37,23 +57,21 @@ export function Home(){
                 
             </Header>
             
-            <ScrollBox >
-                <ScrollView>
-                    <Box
-                    onPress={buttonContainer}
-                    title="Projetos"
-                      
-                    >
-                        <Title>1</Title>
-                    </Box>
+            <ScrollBox>
+               
+                    <BoxFlat
+                    data={box}
+                    keyExtractor={item => item.idprojeto}
+                    renderItem={({ item }: { item: BoxDTO }) => 
+                    <CardBox data={item} onPress={() => navigation.navigate('EditButton')}/>}   
+                    />     
+                   
                     
-                     
-                    </ScrollView>       
             </ScrollBox>
             
                 <Button
                 title={'+ Adicionar'}
-                onPress={addnewButtonContainer}
+                onPress={() => navigation.navigate('AddButton')}
                 
                 /> 
                 

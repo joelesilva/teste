@@ -1,4 +1,4 @@
-import { RectButton } from 'react-native-gesture-handler';
+import { FlatList, RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -55,4 +55,20 @@ export const Captions = styled.View`
 export const ScrollBox = styled.View`
     width: 100%;
     
+`;
+export const BoxFlat = styled(FlatList).attrs({
+	contentContainerStyle: {
+		padding: 20
+        
+        
+	},
+	showsVerticalScrollIndicator: false,
+})`
+
+border-radius: 5px
+background-color: #8DB3E2
+margin-left: 5px
+margin-right: 5px
+margin-top: 5px;
+
 `;
