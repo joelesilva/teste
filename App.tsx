@@ -22,8 +22,8 @@ export default function App() {
     headerShown: false
   }}>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="AddButton" component={AddBox} />
-      <Stack.Screen name="EditButton" component={EditBox} />
+      <Stack.Screen name="AddBox" component={AddBox} />
+      <Stack.Screen name="EditBox" component={EditBox} />
       
       </Stack.Navigator>
     </NavigationContainer>

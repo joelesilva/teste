@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import api from '../../services/api';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect  } from '@react-navigation/native';
 
 
 import {
@@ -39,7 +39,6 @@ const schema = Yup.object().shape({
         .string()
         .required("A descrição é obrigatório"),
 })
-
 
 
 

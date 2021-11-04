@@ -1,4 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from '../../components/Button';
 import { CardBox } from '../../components/CardBox';
 import { BoxDTO } from '../../dtos/BoxDTO';
@@ -25,9 +27,17 @@ import {
 
 
 
-export function Home({navigation}){
+export function Home(){
+    const navigation: any = useNavigation();
+
     const [box, setBox] = useState([]);
 
+    function HandleEditBox( VarBox: BoxDTO ){
+            navigation.navigate('EditBox', {VarBox} )
+    }
+    function HandleAddBox(){
+        navigation.navigate('AddBox')
+    }
     useEffect(() =>{
         async function Boxapi () {
         
@@ -42,7 +52,7 @@ export function Home({navigation}){
            
         }
         Boxapi();
-    },[])
+    },[box])
    
        
     return (
@@ -63,15 +73,16 @@ export function Home({navigation}){
                     data={box}
                     keyExtractor={item => item.idprojeto}
                     renderItem={({ item }: { item: BoxDTO }) => 
-                    <CardBox data={item} onPress={() => navigation.navigate('EditButton')}/>}   
+                    <CardBox data={item} onPress={() => HandleEditBox(item)}/>}   
                     />     
                    
                     
             </ScrollBox>
+           
             
                 <Button
                 title={'+ Adicionar'}
-                onPress={() => navigation.navigate('AddButton')}
+                onPress={HandleAddBox}
                 
                 /> 
                 

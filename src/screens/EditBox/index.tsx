@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import api from '../../services/api';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { BoxDTO } from '../../dtos/BoxDTO';
+import { Alert } from 'react-native';
 import {
     Container,
     Header,
@@ -27,7 +28,7 @@ interface FormData {
     ds_descricao: string;
 }
 interface Params {
-    ApiBox: BoxDTO;
+    VarBox: BoxDTO;
 }
 
 
@@ -61,24 +62,43 @@ export function EditBox(){
 
     const route = useRoute();
 
-    const newBox = {
-        idprojeto: form.idprojeto,
-        ds_titulo: form.ds_titulo,
-        ds_descricao: form.ds_descricao,
-    }
-    console.log(newBox)
+            const { VarBox } = route.params as Params
+            console.log(VarBox);
+    
 
-    const  { ApiBox }  = route.params as Params;
-    console.log(ApiBox)
+    
     async function handleRegister(form: FormData) {
+    
         try {
-            await api.put.then(() => navigation.navigate("Home"))           
+            await api.put(`/ApiBox/${VarBox.id}`, {
+                idprojeto: form.idprojeto,
+                ds_titulo: form.ds_titulo,
+                ds_descricao: form.ds_descricao,
+            }  ).then(() => navigation.navigate("Home"))           
             reset();
         } catch (error: any) {
             console.log(error.message);
         }
     }
 
+    function alerta() {
+        Alert.alert(`Você deseja deletar?`,
+        "",
+        [
+          {text: 'Cancelar', },
+          {text: 'Deletar', onPress: () => DeleteBox()},
+        ],
+          {cancelable: false}
+        )}
+
+    async function DeleteBox(){
+        await api.delete(`/ApiBox/${VarBox.id}`).then(() => {navigation.navigate("Home")});
+    }
+
+    function teste (){
+        console.log("lixo")
+        
+    }
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
@@ -86,8 +106,8 @@ export function EditBox(){
             <Header> 
                 <Text>Editar Projeto </Text>
 
-                <TrashButton>
-                <Ionicons name="trash" size={32} color="white" />
+                <TrashButton onPress={alerta}>
+                <Ionicons name="trash" size={32} color="white"  />
                 </TrashButton>
 
                 
